@@ -3,20 +3,20 @@ package dev.iriarte.models;
 public class Account {
 	
 		private int accountId;
-		private double balance;
-		private boolean isChecking;
+		private int balance;
+		private boolean checkings;
 		private int clientId;
-	
-	
+		
+		
 		public Account() {
 			super();
 		}
 		
-		public Account(int accountId, double balance, boolean isChecking, int clientId) {
+		public Account(int accountId, int balance, boolean checkings, int clientId) {
 			
 			this.accountId = accountId;
 			this.balance = balance;
-			this.isChecking = isChecking;
+			this.checkings = checkings;
 			this.clientId = clientId;
 		}
 	
@@ -45,24 +45,24 @@ public class Account {
 			return balance;
 		}
 	
-		public void setBalance(double balance) {
+		public void setBalance(int balance) {
 			
 			this.balance = balance;
 		}
 	
-		public boolean getIsChecking() {
+		public boolean getCheckings() {
 			
-			return isChecking;
+			return checkings;
 		}
 	
-		public void setChecking(boolean isChecking) {
+		public void setChecking(boolean checkings) {
 			
-			this.isChecking = isChecking;
+			this.checkings = checkings;
 		}
 	
 		@Override
 		public String toString() {
-			return "Account [accountId=" + accountId + ", balance=" + balance + ", isChecking=" + isChecking + ", clientId=" + clientId + "]";
+			return "Account [accountId=" + accountId + ", balance=" + balance + ", checkings=" + checkings + ", clientId=" + clientId + "]";
 		}
 	
 	

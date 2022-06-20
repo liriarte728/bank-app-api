@@ -14,23 +14,23 @@ public class AccountDAO {
 	
 		private static ConnectionUtil cu = ConnectionUtil.getConnectionUtil();
 	
-		public Account createAccount(Account a, int clientId) {
+		public Account createAccount(Account a) {
 			
 			String sql = "insert into accounts values (default, ?, ?, ?) returning *";
 			
 			try (Connection conn = cu.getConnection()) {
 				PreparedStatement ps = conn.prepareStatement(sql);
 				ps.setDouble(1, a.getBalance());
-				ps.setBoolean(2, a.getIsChecking());
-				ps.setInt(3, clientId);
+				ps.setBoolean(2, a.getCheckings());
+				ps.setInt(3, a.getClientId());
 				
 				ResultSet rs = ps.executeQuery();
 				
 				if (rs.next()) {
 					return new Account(
 							rs.getInt("accountid"),
-							rs.getDouble("balance"),
-							rs.getBoolean("ischecking"),
+							rs.getInt("balance"),
+							rs.getBoolean("checkings"),
 							rs.getInt("clientid")
 							);	
 				}
@@ -56,8 +56,8 @@ public class AccountDAO {
 				if (rs.next()) {
 					return new Account (
 							rs.getInt("accountId"),
-							rs.getDouble("balance"),
-							rs.getBoolean("ischecking"),
+							rs.getInt("balance"),
+							rs.getBoolean("checkings"),
 							rs.getInt("clientid")
 							);
 				}
@@ -83,10 +83,10 @@ public class AccountDAO {
 				
 				while (rs.next()) {
 					int accountId = rs.getInt("accountid");
-					double balance = rs.getDouble("balance");
-					boolean isChecking = rs.getBoolean("ischecking");
+					int balance = rs.getInt("balance");
+					boolean checkings = rs.getBoolean("checkings");
 					
-					Account a = new Account(accountId, balance, isChecking, clientId);
+					Account a = new Account(accountId, balance, checkings, clientId);
 					
 					accounts.add(a);
 							
@@ -102,16 +102,16 @@ public class AccountDAO {
 		}
 	
 		
-		public void updateAccount(Account aChanged, int accountId, int clientId) {
+		public void updateAccount(Account updatedAccount) {
 			
-			String sql = "update accounts set balance = ?, ischecking = ?, clientid = ? where accountid = ?";
+			String sql = "update accounts set balance = ?, checkings = ?, clientid = ? where accountid = ?";
 			
 			try (Connection conn = cu.getConnection()) {
 				PreparedStatement ps = conn.prepareStatement(sql);
-				ps.setDouble(1, aChanged.getBalance());
-				ps.setBoolean(2, aChanged.getIsChecking());
-				ps.setInt(3, clientId);
-				ps.setInt(4, accountId);
+				ps.setDouble(1, updatedAccount.getBalance());
+				ps.setBoolean(2, updatedAccount.getCheckings());
+				ps.setInt(3, updatedAccount.getClientId());
+				ps.setInt(4, updatedAccount.getId());
 				
 				ps.executeUpdate();
 				

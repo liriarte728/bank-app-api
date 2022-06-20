@@ -11,7 +11,7 @@ public class AccountService {
 		
 		public Account createAccount(Account a, int clientId) {
 			
-			Account createdAccount = accountDao.createAccount(a, clientId);
+			Account createdAccount = accountDao.createAccount(a);
 			
 			return createdAccount;
 		}
@@ -42,7 +42,7 @@ public class AccountService {
 		
 		public void updateAccount(Account aChanged, int accountId, int clientId) {
 			
-			accountDao.updateAccount(aChanged, accountId, clientId);
+			accountDao.updateAccount(aChanged);
 		}	
 		
 		public void deleteAccount(int accountId) {
