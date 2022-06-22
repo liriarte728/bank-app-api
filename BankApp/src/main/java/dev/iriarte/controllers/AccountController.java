@@ -70,10 +70,11 @@ public class AccountController {
 			
 			try {
 				as.updateAccount(aChanged, accountId, clientId);
+				ctx.status(200);
 			} catch (Exception e) {
 				ctx.status(404);
 			}
-			ctx.status(200);
+			
 	
 		}
 		

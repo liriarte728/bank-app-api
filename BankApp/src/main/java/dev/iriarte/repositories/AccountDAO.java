@@ -55,7 +55,7 @@ public class AccountDAO {
 				
 				if (rs.next()) {
 					return new Account (
-							rs.getInt("accountId"),
+							rs.getInt("accountid"),
 							rs.getInt("balance"),
 							rs.getBoolean("checkings"),
 							rs.getInt("clientid")

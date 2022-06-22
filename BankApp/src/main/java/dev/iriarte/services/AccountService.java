@@ -11,6 +11,7 @@ public class AccountService {
 		
 		public Account createAccount(Account a, int clientId) {
 			
+			a.setClientId(clientId);
 			Account createdAccount = accountDao.createAccount(a);
 			
 			return createdAccount;
@@ -21,7 +22,7 @@ public class AccountService {
 			Account a = accountDao.getAccountbyId(accountId, clientId);
 			
 			if (a == null) {
-				throw new Exception("Account not found");
+				throw new Exception("not found, please try again");
 			}
 			
 			return a;
@@ -33,16 +34,17 @@ public class AccountService {
 			List<Account> a = accountDao.getAccounts(clientId);
 			
 			if (a == null) {
-				throw new Exception("Accounts not found");
+				throw new Exception("not found, please try again");
 			}
 	
 	
 			return a;
 		}
 		
-		public void updateAccount(Account aChanged, int accountId, int clientId) {
-			
-			accountDao.updateAccount(aChanged);
+		public void updateAccount(Account updatedAccount, int accountId, int clientId) {
+			updatedAccount.setId(accountId);
+			updatedAccount.setClientId(clientId);
+			accountDao.updateAccount(updatedAccount);
 		}	
 		
 		public void deleteAccount(int accountId) {
